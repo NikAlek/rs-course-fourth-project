@@ -1,0 +1,14 @@
+[package]
+version = "0.1.0"
+edition = "2021"
+name = "image-processor"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+image = "0.24"
+libloading = "0.8"
+thiserror = "1.0"
+
+[[bin]]
+path = "src/main.rs"
+name = "image-processor"
