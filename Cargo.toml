@@ -12,3 +12,8 @@ thiserror = "1.0"
 [[bin]]
 path = "src/main.rs"
 name = "image-processor"
+
+[lib]
+path = "src/lib.rs"
+name = "image_processor"
+

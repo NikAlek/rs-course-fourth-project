@@ -1,13 +1,10 @@
-use args::Args;
 use clap::Parser;
-use image_loader::ImageData;
-use plugin_loader::Plugin;
-use crate::error::ProcessorError;
+use image_processor::{Args, ImageData, Plugin, ProcessorError};
 
 fn main() -> Result<(), ProcessorError> {
     let args = Args::parse();   
 
-    args.validate().unwrap();
+    args.validate()?;
 
     println!("Input:  {:?}", args.input);
     println!("Output: {:?}", args.output);
@@ -27,7 +24,7 @@ fn main() -> Result<(), ProcessorError> {
 
     println!("\nReading parameters.");
     let params_content = std::fs::read_to_string(&args.params)
-        .map_err(error::ProcessorError::ParamsRead)?;
+        .map_err(ProcessorError::ParamsRead)?;
     println!("Parameters loaded ({} bytes)", params_content.len());
 
 
@@ -51,8 +48,3 @@ fn main() -> Result<(), ProcessorError> {
 
     Ok(())
 }
-
-mod args;
-mod error;
-mod image_loader;
-mod plugin_loader;

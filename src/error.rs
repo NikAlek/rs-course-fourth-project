@@ -14,6 +14,9 @@ pub enum ProcessorError {
     #[error("Plugin library not found: {0}")]
     PluginNotFound(String),
 
+     #[error("Unknown platform")]
+    UnknownTargetPlatform,
+
     #[error("Failed to load plugin library: {0}")]
     PluginLoad(#[source] libloading::Error),
 
