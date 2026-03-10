@@ -8,23 +8,23 @@ use crate::error::{ProcessorError};
     about = "Image processor with dynamic plugin support",
 )]
 pub struct Args {
-    /// Путь к исходному PNG-изображению
+    // Путь к исходному PNG-изображению
     #[arg(short, long, value_name = "PATH")]
     pub input: PathBuf,
 
-    /// Путь для сохранения обработанного изображения
+    // Путь для сохранения обработанного изображения
     #[arg(short, long, value_name = "PATH")]
     pub output: PathBuf,
 
-    /// Имя плагина без расширения (например, mirror)
+    // Имя плагина без расширения (например, mirror)
     #[arg(short = 'P', long, value_name = "NAME")]
     pub plugin: String,
 
-    /// Путь к файлу с параметрами обработки
+    // Путь к файлу с параметрами обработки
     #[arg(short, long, value_name = "PATH")]
     pub params: PathBuf,
 
-    /// Путь к директории с плагинами
+    // Путь к директории с плагинами
     #[arg(long, value_name = "PATH", default_value = "target/debug")]
     pub plugin_path: PathBuf,
 

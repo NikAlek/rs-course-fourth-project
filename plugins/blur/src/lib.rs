@@ -89,7 +89,7 @@ pub extern "C" fn process_image(
     println!("[blur] Raw params: {}", params_str);
 
 
-    if width <= 0 || height <= 0 {
+    if width == 0 || height == 0 {
         eprintln!("[blur] Error: Invalid dimensions");
         return;
     }

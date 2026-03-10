@@ -15,7 +15,7 @@ impl ImageData {
 
         let (width, height) = img.dimensions();
 
-        if width <= 0 || height <= 0 {
+        if width == 0 || height == 0 {
             return Err(ProcessorError::InvalidDimensions(width, height));
         }
 
