@@ -206,14 +206,12 @@ mod tests {
     fn test_blur_single_pixel() {
         let mut pixels = vec![100u8, 150u8, 200u8, 255u8];
 
-        unsafe {
             process_image(
                 1,
                 1,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         // Один пиксель не должен измениться
         assert_eq!(pixels[0], 100);
@@ -225,16 +223,14 @@ mod tests {
     #[test]
     fn test_blur_uniform_image() {
         // Все пиксели одинаковые - размытие не должно изменить
-        let mut pixels = vec![128u8, 128u8, 128u8, 255u8; 9]; // 3x3
+        let mut pixels = vec![128u8, 128u8, 128u8, 255u8].repeat(9); // 3x3
 
-        unsafe {
             process_image(
                 3,
                 3,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         for i in 0..9 {
             assert_eq!(pixels[i * 4], 128);
@@ -252,14 +248,12 @@ mod tests {
             255u8, 255u8, 255u8, 255u8,
         ];
 
-        unsafe {
             process_image(
                 1,
                 3,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         // Средний пиксель должен остаться примерно таким же
         assert!(pixels[4] >= 100 && pixels[4] <= 150);
@@ -270,14 +264,12 @@ mod tests {
         let mut pixels = vec![0u8, 0u8, 0u8, 255u8];
 
         // Не должно паниковать
-        unsafe {
             process_image(
                 0,
                 0,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         assert_eq!(pixels[0], 0);
     }

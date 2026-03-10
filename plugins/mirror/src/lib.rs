@@ -174,17 +174,6 @@ mod tests {
     use super::*;
     use std::ffi::CString;
 
-    fn create_test_image(width: usize, height: usize) -> Vec<u8> {
-        let mut pixels = Vec::with_capacity(width * height * 4);
-        for y in 0..height {
-            for x in 0..width {
-                let value = ((x + y * width) % 256) as u8;
-                pixels.extend_from_slice(&[value, value, value, 255]); // R=G=B, A=255
-            }
-        }
-        pixels
-    }
-
 
     #[test]
     fn test_mirror_horizontal_2x2() {
@@ -198,14 +187,12 @@ mod tests {
             3u8, 3, 3, 255,   // (1,1)
         ];
 
-        unsafe {
             process_image(
                 2,
                 2,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         // После горизонтального отражения:
         // [1, 0]
@@ -227,14 +214,12 @@ mod tests {
 
         let params = CString::new("direction=vertical").unwrap();
 
-        unsafe {
             process_image(
                 2,
                 2,
                 pixels.as_mut_ptr(),
                 params.as_ptr(),
             );
-        }
 
         // После вертикального отражения:
         // [2, 3]
@@ -256,14 +241,12 @@ mod tests {
 
         let params = CString::new("direction=both").unwrap();
 
-        unsafe {
             process_image(
                 2,
                 2,
                 pixels.as_mut_ptr(),
                 params.as_ptr(),
             );
-        }
 
         // После отражения по обеим осям:
         // [3, 2]
@@ -278,14 +261,12 @@ mod tests {
     fn test_mirror_1x1_no_change() {
         let mut pixels = vec![100u8, 150u8, 200u8, 255u8];
 
-        unsafe {
             process_image(
                 1,
                 1,
                 pixels.as_mut_ptr(),
                 std::ptr::null(),
             );
-        }
 
         assert_eq!(pixels[0], 100);
         assert_eq!(pixels[1], 150);
